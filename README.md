@@ -9,12 +9,12 @@ Technologies used:
 - Database: MySQL
 
 # Deployment
-```
+
 http://persona-wwc.herokuapp.com/  (front-end)
 https://persona-python.herokuapp.com/  (back-end)
-```
 
-Team:
+
+# Team:
 - Filza Mazahir  https://github.com/filzamazahir
 - Sarah Homsi  https://github.com/Sarah-Homsi
 - Kimberly Mach https://github.com/kdvmach
