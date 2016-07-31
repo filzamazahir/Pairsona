@@ -11,6 +11,7 @@ Technologies used:
 # Deployment
 
 http://persona-wwc.herokuapp.com/  (front-end)
+
 https://persona-python.herokuapp.com/  (back-end)
 
 
