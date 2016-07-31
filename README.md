@@ -28,6 +28,8 @@ Run the languages.sql files as well
 ```
 python app.py
 ```
+Go to http://localhost:5000/static/index.html
+
 
 # Deployment
 
