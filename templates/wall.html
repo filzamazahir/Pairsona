@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Message Board</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{url_for('static',filename='css/wall.css')}}">
+    </head>
+    <body>
+        <div class="container">
+            <div id="header">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h2>Message Board</h2>
+                    </div>
+
+                    <div class="col-md-2 col-md-offset-5">
+                        <h6>Welcome {{current_user[0]['first_name']}}!</h6>
+                    </div>
+
+                    <div class="col-md-1">
+                        <a href="/logoff">Logoff</a>
+                    </div>
+                </div>
+            </div>
+
+            
+
+            <form action = "/message/{{current_user[0]['id']}}", method = 'POST'>
+                <div class="form-group">
+                    <label for="message">Post a message:</label>
+                    <textarea name="message" id="message" class="form-control" rows ="4"></textarea>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-10">
+                        <button type="submit" class="btn btn-primary">Post a message</button>
+                    </div>
+                </div>
+            </form>
+
+            
+            <div class="row" id="post">
+                
+                {%for msg_user in messages_users %}
+
+                <div class="col-md-12">
+                    <h4>{{msg_user['first_name']}} {{msg_user['last_name']}} - {{msg_user['created_at']}}</h4>
+                </div>
+                <div class="col-md-1 col-md-offset-6">
+                <!-- .strftime("%B %d %Y, %I:%M %p") -->
+                    
+                </div>
+
+                <div class="col-md-11 col-md-offset-1">
+                    <p>{{msg_user['message']}}</p>
+
+                    {%if msg_user['userid'] == current_user[0]['id'] %}
+                        <a href="/delete_message/{{msg_user['msgid']}}">Delete</a>
+                    {%endif%}
+                    <br>
+                </div>
+                
+           
+                {%for comment_msg_usr in comments_messages_users %}
+                {%if comment_msg_usr['comment_msgid'] == msg_user['msgid']%}
+
+                <div class="col-md-10 col-md-offset-2">
+                    <h5>{{comment_msg_usr['first_name']}} {{comment_msg_usr['last_name']}} - {{comment_msg_usr['created_at']}}</h5>
+                    <p>{{comment_msg_usr['comment']}}</p>
+
+                </div>
+                <!-- .strftime("%B %d %Y, %I:%M %p") -->
+                {%endif%}
+                {%endfor%}
+
+
+
+                <form action = "/comment/{{msg_user['msgid']}}/{{current_user[0]['id']}}", method = 'POST'>
+                    <div class="col-md-10 col-md-offset-2">
+                        <div class="form-group">
+                            <label for="comment">Post a comment:</label>
+                            <textarea name="comment" id="comment" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-md-offset-10">
+                        <button type="submit" class="btn btn-success">Post a comment</button>
+                    </div>
+                </form>
+
+
+                {%endfor %}
+            
+
+            </div>
+
+            
+        </div>
+
+    </body>
+</html>

@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request, redirect, flash, session
 from mysqlconnection import MySQLConnector
 import re 
+import json
+
 from flask.ext.bcrypt import Bcrypt
 from datetime import datetime, timedelta
 
-mysql = MySQLConnector('persona_db')
+mysql = MySQLConnector('personas_db')
 app = Flask (__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = "SecretKeyHere"
@@ -16,12 +18,12 @@ EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9\.\+_-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]*$')
 def index():
     # Display log in page if not logged in
     if not session.get('userid') or not session['userid']: #second one means if session['userid'] = False
-        return self.load_view('index.html')
+        return render_template('index.html')
 
     # If logged in already, redirect to dashboard (according to admin level)
     users = self.models['User'].get_all_users()
     current_user = self.models['User'].get_a_user(session['userid'])
-    return self.load_view('register.html', current_user = current_user, users = users)
+    return render_template('register.html', current_user = current_user, users = users)
 
 #Register user
 @app.route ('/users/register', methods=['POST'])
@@ -33,19 +35,28 @@ def add_user_login():
         print "Json loads"
         print json_data
 
-        register_info = {
-            "firstname": json_data['firstname'],
-            "lastname": json_data['lastname'],
-            "username": json_data['username'],
-            "email": json_data['email'], 
-            "password": json_data['password'],
-            "conf_password": json_data['conf_password'],
-            "helper": json_data['helper'],
-            "zipcode": json_data['zipcode'],
-            "description": json_data['description']
-        }
+        # register_info = {
+        #     "firstname": json_data['firstname'],
+        #     "lastname": json_data['lastname'],
+        #     "username": json_data['username'],
+        #     "email": json_data['email'], 
+        #     "password": json_data['password'],
+        #     "conf_password": json_data['conf_password'],
+        #     "helper": json_data['helper'],
+        #     "zipcode": json_data['zipcode'],
+        #     "description": json_data['description']
+        # }
 
-        print register_info['firstname']
+       
+        firstname = str(json_data['firstname'])
+        lastname = str(json_data['lastname'])
+        username = str(json_data['username'])
+        email = json_data['email']
+        password = json_data['password'],
+        conf_password = json_data['conf_password'],
+        helper = json_data['helper'],
+        zipcode = json_data['zipcode'],
+        description = json_data['description']
         
 
         # register_status = self.models['User'].register(register_info)
