@@ -283,8 +283,31 @@ def filter_search (zipcode):
     social = json_filters['social']
     previous_newcomer = json_filters['previous_newcomer']
 
+    query = "SELECT * FROM users LEFT JOIN helper ON users.id = helper.user_id WHERE helper = 1 AND zipcode = {}".format(zipcode)
+    additions = "";
+        
+    if realestate:
+        additions += " AND realestate = {}".format(realestate)
+    if finances:
+        additions += " AND finances = {}".format(finances)          
+    if medicalcare:
+        additions += " AND medicalcare = {}".format(medicalcare)
+    if automobile:
+        additions += " AND automobile = {}".format(automobile)
+    if lang_tutor:
+        additions += " AND lang_tutor = {}".format(lang_tutor)
+    if lang_translator:
+        additions += " AND lang_translator = {}".format(lang_translator)
+    if social:
+        additions += " AND social = {}".format(social)
+    if previous_newcomer:
+        additions += " AND previous_newcomer = {}".format(previous_newcomer)
+        
+    if len(additions) > 0:
+        query += additions
 
-    users = mysql.fetch("SELECT * FROM users LEFT JOIN helper ON users.id = helper.user_id WHERE helper = 1 AND zipcode = {} AND realestate = {} AND finances = {} AND medicalcare = {} AND automobile = {} AND lang_tutor = {} AND lang_translator = {} AND social = {} AND previous_newcomer".format(zipcode, realestate, finances, medicalcare, automobile, lang_tutor, lang_translator, social, previous_newcomer))
+    # users = mysql.fetch("SELECT * FROM users LEFT JOIN helper ON users.id = helper.user_id WHERE helper = 1 AND zipcode = {} AND realestate = {} AND finances = {} AND medicalcare = {} AND automobile = {} AND lang_tutor = {} AND lang_translator = {} AND social = {} AND previous_newcomer".format(zipcode, realestate, finances, medicalcare, automobile, lang_tutor, lang_translator, social, previous_newcomer))
+    users = mysql.fetch(query)
     print users
     users_dict = {"searchresults" : users}
     return jsonify(**users_dict)
