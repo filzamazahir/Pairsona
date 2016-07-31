@@ -127,6 +127,7 @@ def add_user_login():
         helper = json_data['helper']
         zipcode = json_data['zipcode']
         description = json_data['description']
+        country_origin = json_data['country_origin']
         
 
 
@@ -198,7 +199,7 @@ def add_user_login():
             # return {"status" : False, "error_dict": error_dict}
 
         pw_hash = bcrypt.generate_password_hash(password)
-        insert_query = "INSERT INTO users (first_name, last_name, username, email, password, helper, zipcode, description, created_at, updated_at) VALUES ('{}','{}','{}','{}','{}', '{}', '{}', '{}', NOW(), NOW())".format(firstname, lastname, username, email, pw_hash, helper, zipcode, description)
+        insert_query = "INSERT INTO users (first_name, last_name, username, email, password, helper, zipcode, description, country_origin, created_at, updated_at) VALUES ('{}','{}','{}','{}','{}', '{}', '{}', '{}','{}', NOW(), NOW())".format(firstname, lastname, username, email, pw_hash, helper, zipcode, description, country_origin)
         mysql.run_mysql_query(insert_query)
  
 
@@ -313,7 +314,85 @@ def filter_search (zipcode):
     return jsonify(**users_dict)
 
 
+# Connection Method
+@app.route('/connect', methods=['POST'])
+def add_connection ():
+      
 
+    connection_attributes = request.data
+    json_connection_attributes = json.loads(connection_attributes)
+
+    helper_id = json_connection_attributes['helper_id']
+    newcomer_id = json_connection_attributes['newcomer_id']
+   
+
+    mysql.run_mysql_query("INSERT INTO connections (helper_id, newcomer_id, created_at, updated_at) values ('{}','{}',NOW(),NOW())".format(helper_id, newcomer_id))
+    
+    return redirect ('/')
+
+
+
+@app.route('/connections/<user_id>')
+def view_connections (user_id):
+    
+    user_id = int(user_id)
+    # is_helper = int(ishelper)
+    
+    # connection_attributes = request.data
+    # json_connection_attributes = json.loads(connection_attributes)
+
+    # user_id = json_connection_attributes['user_id']
+    # is_helper = json_connection_attributes['is_helper']
+    current_user = mysql.fetch("SELECT * FROM users WHERE id = {}".format(user_id))
+    print "CURRENT USER"
+    print current_user[0]
+    is_helper = current_user[0]['helper']
+    
+
+    if (is_helper):
+        connections = mysql.fetch("SELECT * from connections LEFT JOIN users ON users.id = connections.newcomer_id where helper_id = {}".format(user_id))
+    
+    else: 
+        connections = mysql.fetch("SELECT * from connections LEFT JOIN users  ON users.id = connections.helper_id where new_comer = {}".format(user_id))
+
+    print "CONNECTIONS"
+    print connections
+    connection_dict = {"connection_list" : connections}
+    return jsonify(**connection_dict)
+
+
+@app.route('/invites', methods=['POST'])
+def add_invites ():
+    
+    invite_attributes = request.data
+    json_invite_attributes = json.loads(invite_attributes)
+
+    inviter_id = json_invite_attributes['inviter_id']
+    invited_id = json_invite_attributes['invited_id']
+   
+
+    mysql.run_mysql_query("INSERT INTO invitations (inviter_id, invited_id) values ('{}','{}')".format(inviter_id, invited_id))
+    
+    return redirect ('/')
+
+
+
+@app.route('/invites/<user_id>')
+def view_invites (user_id):
+      
+    user_id = int(user_id)
+    # invite_attributes = request.data
+    # json_invite_attributes = json.loads(invite_attributes)
+
+    # user_id = json_invite_attributes['user_id']
+
+
+    invites = mysql.fetch("SELECT * from invitations LEFT JOIN users ON users.id = invitations.inviter_id where invited_id = {}".format(user_id))
+    # SELECT * from invitations LEFT JOIN users ON users.id = invitations.inviter_id where invited_id = 2
+
+    
+    invites_dict = {"invites_list" : invites}
+    return jsonify(**invites_dict)
 
 
 

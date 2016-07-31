@@ -3,13 +3,14 @@ http://localhost:5000/register
 
 {"firstname":"First", 
 "lastname":"Person", 
-"username":"secondperson", 
-"email":"secondperson@gmail.com", 
+"username":"first", 
+"email":"firstperson@gmail.com", 
 "password":"Hello123",
 "conf_password":"Hello123", 
 "helper":1, 
 "zipcode":93456, 
 "description":"Description is here",
+"country_origin": "Syria",
 "realestate": 1, 
 "finances" : 1,
 "medicalcare" : 0,
@@ -29,6 +30,7 @@ http://localhost:5000/register
 "helper":0, 
 "zipcode":12345, 
 "description":"Hello there!!!! Description is here",
+"country_origin": "Canada",
 "date_entry":"2016-07-31"}
 
 
@@ -42,6 +44,7 @@ http://localhost:5000/register
 "helper":1, 
 "zipcode":93456, 
 "description":"Description is here",
+"country_origin": "Germany",
 "realestate": 1, 
 "finances" : 0,
 "medicalcare" : 0,
@@ -59,15 +62,16 @@ http://localhost:5000/register
 "email":"fourth@gmail.com", 
 "password":"Hello1",
 "conf_password":"Hello1", 
-"helper":1, 
+"helper":0, 
 "zipcode":98343, 
 "description":"Hello there!!!! Description is here",
+"country_origin": "USA",
 "date_entry":"2015-01-31"}
 
 
 http://localhost:5000/login
 
-{"email":"secondperson@gmail.com",
+{"email":"firstperson@gmail.com",
 "password":"Hello123"}
 
 {"email":"helloworld@gmail.com", 
@@ -93,4 +97,14 @@ Format for search results query:
     }
   ]
 }
+
+
+http://localhost:5000/connect
+{"helper_id": 1,
+"newcomer_id": 2}
+
+
+http://localhost:5000/invites
+{"inviter_id": 1,
+"invited_id": 2}
 
