@@ -201,6 +201,25 @@ def add_user_login():
         id_col = mysql.fetch(get_id_query)
         registered_id = id_col[0]['id']
         session['userid'] = registered_id
+
+        if helper == 1:
+            realestate = json_data['helper']
+            finances = json_data['finances']
+            medicalcare = json_data['medicalcare']
+            automobile = json_data['automobile']
+            lang_tutor = json_data['lang_tutor']
+            lang_translator = json_data['lang_translator']
+            social = json_data['social']
+            previous_newcomer = json_data['previous_newcomer']
+
+            helper_insert_query = "INSERT INTO helper (user_id, realestate, finances, medicalcare, automobile, lang_tutor, lang_translator, social, previous_newcomer, created_at, updated_at) VALUES ('{}','{}','{}','{}','{}','{}', '{}', '{}', '{}', NOW(), NOW())".format(registered_id, realestate, finances, medicalcare, automobile, lang_tutor, lang_translator, social, previous_newcomer)
+            mysql.run_mysql_query(helper_insert_query)
+
+        else:
+            date_entry = json_data['date_entry']
+            newcomer_insert_query = "INSERT INTO newcomer (user_id, date_entry, created_at, updated_at) VALUES ('{}', '{}', NOW(), NOW())".format(registered_id, date_entry)
+            mysql.run_mysql_query(newcomer_insert_query)
+
         
         # return {"status": True, "id":last_user_id}
 

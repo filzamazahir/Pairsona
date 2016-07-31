@@ -7,9 +7,17 @@ http://localhost:5000/register
 "email":"secondperson@gmail.com", 
 "password":"Hello123",
 "conf_password":"Hello123", 
-"helper":0, 
+"helper":1, 
 "zipcode":93456, 
-"description":"Description is here"}
+"description":"Description is here",
+"realestate": 1, 
+"finances" : 1,
+"medicalcare" : 0,
+"automobile" : 0,
+"lang_tutor" : 1,
+"lang_translator" : 1,
+"social": 1,
+"previous_newcomer" : 0}
 
 
 {"firstname":"Second", 
@@ -20,7 +28,10 @@ http://localhost:5000/register
 "conf_password":"Hello1", 
 "helper":0, 
 "zipcode":12345, 
-"description":"Hello there!!!! Description is here"}
+"description":"Hello there!!!! Description is here",
+"date_entry":"2016-07-31"}
+
+
 
 {"firstname":"Third", 
 "lastname":"Person", 

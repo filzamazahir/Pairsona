@@ -63,7 +63,6 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `persona_db`.`newcomer` (
   `user_id` INT NOT NULL,
   `date_entry` DATETIME NULL,
-  `country_origin` VARCHAR(45) NULL,
   `created_at` DATETIME NULL,
   `updated_at` DATETIME NULL,
   CONSTRAINT `fk_refugee_users1`
