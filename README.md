@@ -3,16 +3,21 @@ Persona is a webapp that connects newcomers in the country to locals in the comm
 
 This is for the WWCode Hackathon!!
 
-Team:
-- Filza Mazahir
-- Sarah Homsi
-- Kimberly Mach
-- Nivedhitha Venugopal
-- Marisssa Swanson
-- Sabrina Harris
-- Sam Brooks
-
 Technologies used:
 - Front-end: Angular
 - Back-end: Python (Flask)
 - Database: MySQL
+
+# Deployment
+```
+http://persona-wwc.herokuapp.com/
+```
+
+Team:
+- Filza Mazahir  https://github.com/filzamazahir
+- Sarah Homsi  https://github.com/Sarah-Homsi
+- Kimberly Mach https://github.com/kdvmach
+- Nivedhitha Venugopal  https://github.com/NivedhithaV
+- Marisssa Swanson
+- Sabrina Harris
+- Sam Brooks
