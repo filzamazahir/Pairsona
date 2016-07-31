@@ -8,6 +8,27 @@ Technologies used:
 - Back-end: Python (Flask)
 - Database: MySQL
 
+# To Run
+
+1) Clone the project
+```
+git clone https://github.com/filzamazahir/Persona
+cd Persona
+```
+
+2) Make sure to have pip installed. If you don't have it installed there are great instructions here: https://pip.pypa.io/en/latest/installing.html
+```
+https://github.com/filzamazahir/Persona
+```
+
+3) Import the persona.sql files from the folder extra, and start the MAMP server
+Run the languages.sql files as well
+
+4)  Start the development server::
+```
+python app.py
+```
+
 # Deployment
 
 http://persona-wwc.herokuapp.com/  (front-end)
