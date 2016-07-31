@@ -94,6 +94,12 @@ def logoff ():
 
 #################################################################################
 
+# View User
+@app.route('/user/<user_id>')
+def view_profile (user_id):
+    user_id = int(user_id)
+    current_user = mysql.fetch("SELECT * FROM users WHERE id = '{}'".format(user_id))
+    return jsonify(**current_user[0])
 
 #Register user
 @app.route ('/register', methods=['POST'])
@@ -239,9 +245,20 @@ def add_user_login():
             mysql.run_mysql_query(newcomer_insert_query)
 
         
+        #Add languages
+        languages_id = json_data['languages_id']
+        for lang_id in languages_id:
+            add_language(registered_id, lang_id)
+
         # return {"status": True, "id":last_user_id}
 
         return redirect ('/')
+
+def add_language(user_id, language_id):
+    user_id = int(user_id)
+    language_id = int(language_id)
+    mysql.run_mysql_query("INSERT INTO spoken_languages (users_id, language_id) values ('{}','{}')".format(user_id, language_id))
+    return
 
 
 #################################################################################
@@ -252,9 +269,9 @@ def search_people (helper_bool, zipcode):
     helper_bool = int(helper_bool)
     zipcode = int(zipcode)
     if helper_bool == 1:
-        users = mysql.fetch("SELECT * FROM users WHERE helper = 0 AND zipcode = {}".format(zipcode))
+        users = mysql.fetch("SELECT * FROM users LEFT JOIN spoken_languages ON users.id = spoken_languages.users_id LEFT JOIN languages ON spoken_languages.language_id = languages.language_id LEFT JOIN newcomer ON users.id = newcomer.user_id WHERE helper = 0 AND zipcode = {}".format(zipcode))
     else:
-        users = mysql.fetch("SELECT * FROM users WHERE helper = 1 AND zipcode = {}".format(zipcode))
+        users = mysql.fetch("SELECT * FROM users LEFT JOIN spoken_languages ON users.id = spoken_languages.users_id LEFT JOIN languages ON spoken_languages.language_id = languages.language_id LEFT JOIN helper ON users.id = helper.user_id WHERE helper = 1 AND zipcode = {}".format(zipcode))
     
     print users
     users_dict = {"searchresults" : users}
@@ -393,6 +410,26 @@ def view_invites (user_id):
     
     invites_dict = {"invites_list" : invites}
     return jsonify(**invites_dict)
+
+
+# Langauges
+@app.route('/all_languages')
+def get_all_languages ():
+    languages = mysql.fetch("SELECT * from languages")
+    # SELECT * from invitations LEFT JOIN users ON users.id = invitations.inviter_id where invited_id = 2
+    languages_dict = {"languages" : languages}
+    return jsonify(**languages_dict)
+
+@app.route('/spoken_language/<user_id>')
+def get_spoken_languages(user_id):
+    
+    user_id = int(user_id)
+    spoken_languages = mysql.fetch("SELECT * from spoken_languages LEFT JOIN users ON users.id = spoken_languages.user_id where spoken_languages.user_id = {}".format(user_id))
+    languages_dict = {"languages" : spoken_languages}
+    return jsonify(**languages_dict)
+
+
+
 
 
 
