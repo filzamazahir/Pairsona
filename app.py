@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash, session
+from flask import Flask, render_template, request, redirect, flash, session, jsonify
 from mysqlconnection import MySQLConnector
 import re 
 import json
@@ -22,11 +22,17 @@ def index():
 
     # If logged in already, redirect to dashboard (according to admin level)
     current_user = mysql.fetch("SELECT * FROM users WHERE id = {}".format(session['userid']))
-    print current_user
-    return render_template('index.html', current_user = current_user)
+    print current_user[0]
+    print type(current_user[0])
+    return jsonify(**current_user[0])
+    # return render_template('index.html', current_user = current_user)
 
 
-#Authenticate user if they login
+
+#################################################################################
+
+
+#Login
 @app.route ('/login', methods=['POST'])
 def authenticate_login():
 
@@ -70,12 +76,23 @@ def authenticate_login():
     session['login'] = True
     session['userid']= current_user[0]['id']
 
-    print "session login" + session['login']
-    print "session userid" + session['userid']
+    print "session login", session['login']
+    print "session userid", session['userid']
 
     return redirect ('/')
 
 
+
+#Logoff
+@app.route ('/logoff')
+def logoff ():
+    session['login'] = False
+    session.pop('userid')
+
+    return redirect ('/')
+
+
+#################################################################################
 
 
 #Register user
@@ -224,6 +241,25 @@ def add_user_login():
         # return {"status": True, "id":last_user_id}
 
         return redirect ('/')
+
+
+#################################################################################
+
+#Search Query
+@app.route('/search/<helper_bool>/<zipcode>')
+def search_people (helper_bool, zipcode):
+
+    if helper_bool == 1:
+        users = mysql.fetch("SELECT * FROM users WHERE helper = 0 AND zipcode = {}".format(zipcode))
+    else:
+        users = mysql.fetch("SELECT * FROM users WHERE helper = 1 AND zipcode = {}".format(zipcode))
+    
+    print users
+    json_data = json.dumps(users)
+    print json_data
+    return json_data
+
+
 
 
 

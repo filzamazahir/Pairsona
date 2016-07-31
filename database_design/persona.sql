@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `persona_db`.`users` (
   `last_name` VARCHAR(45) NULL,
   `username` VARCHAR(45) NULL,
   `email` VARCHAR(45) NULL,
-  `password` VARCHAR(45) NULL,
+  `password` VARCHAR(255) NULL,
   `helper` TINYINT(1) NULL,
   `zipcode` VARCHAR(45) NULL,
   `description` TEXT NULL,

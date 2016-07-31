@@ -34,14 +34,24 @@ http://localhost:5000/register
 
 
 {"firstname":"Third", 
-"lastname":"Person", 
-"username":"helloworld", 
-"email":"third@gmail.com", 
-"password":"Hello1",
-"conf_password":"Hello1", 
-"helper":0, 
-"zipcode":12345, 
-"description":"Hello there!!!! Description is here"}
+"lastname":"Helper", 
+"username":"thirdhelper", 
+"email":"thirdhelper@gmail.com", 
+"password":"Hello123",
+"conf_password":"Hello123", 
+"helper":1, 
+"zipcode":93456, 
+"description":"Description is here",
+"realestate": 1, 
+"finances" : 0,
+"medicalcare" : 0,
+"automobile" : 1,
+"lang_tutor" : 1,
+"lang_translator" : 1,
+"social": 0,
+"previous_newcomer" : 0}
+
+
 
 {"firstname":"Fourth", 
 "lastname":"Person", 
@@ -58,5 +68,7 @@ http://localhost:5000/login
 
 {"email":"secondperson@gmail.com",
 "password":"Hello123"}
-wrong password
+
+{"email":"helloworld@gmail.com", 
+"password":"Hello1"}
 
