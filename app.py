@@ -7,25 +7,32 @@ from flask.ext.bcrypt import Bcrypt
 from datetime import datetime, timedelta
 
 mysql = MySQLConnector('persona_db')
-app = Flask (__name__)
+app = Flask (__name__, static_url_path='/static')
 bcrypt = Bcrypt(app)
 app.secret_key = "SecretKeyHere"
 
 EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9\.\+_-]+@[a-zA-Z0-9\._-]+\.[a-zA-Z]*$') 
 
-#Home page 
-@app.route ('/')
-def index():
-    # Display log in page if not logged in
-    if not session.get('userid') or not session['userid']: #second one means if session['userid'] = False
-        return render_template('index.html')
 
-    # If logged in already, redirect to dashboard (according to admin level)
-    current_user = mysql.fetch("SELECT * FROM users WHERE id = {}".format(session['userid']))
-    print current_user[0]
-    print type(current_user[0])
-    return jsonify(**current_user[0])
-    # return render_template('index.html', current_user = current_user)
+
+#Home page 
+@app.route ('/', methods=['GET'])
+def index():
+    return render_template('index.html')
+
+
+    # return app.send_static_file('app/index.html') 
+
+    # # Display log in page if not logged in
+    # if not session.get('userid') or not session['userid']: #second one means if session['userid'] = False
+    #     return render_template('index.html')
+
+    # # If logged in already, redirect to dashboard (according to admin level)
+    # current_user = mysql.fetch("SELECT * FROM users WHERE id = {}".format(session['userid']))
+    # print current_user[0]
+    # print type(current_user[0])
+    # return jsonify(**current_user[0])
+    # # return render_template('index.html', current_user = current_user)
 
 
 
@@ -264,21 +271,46 @@ def add_language(user_id, language_id):
 #################################################################################
 
 #Search Query
+# @app.route('/search/<helper_bool>/<zipcode>')
+# def search_people (helper_bool, zipcode):
+#     helper_bool = int(helper_bool)
+#     zipcode = int(zipcode)
+#     if helper_bool == 1:
+#         users = mysql.fetch("SELECT * FROM users LEFT JOIN newcomer ON users.id = newcomer.user_id WHERE helper = 0 AND zipcode = {}".format(zipcode))
+#     else:
+#         users = mysql.fetch("SELECT * FROM users LEFT JOIN helper ON users.id = helper.user_id WHERE helper = 1 AND zipcode = {}".format(zipcode))
+    
+#     print users
+#     users_dict = {"searchresults" : users}
+
+#     print users_dict
+#     print type(users_dict)
+
+#     return jsonify(**users_dict)
+
 @app.route('/search/<helper_bool>/<zipcode>')
 def search_people (helper_bool, zipcode):
     helper_bool = int(helper_bool)
     zipcode = int(zipcode)
     if helper_bool == 1:
-        users = mysql.fetch("SELECT * FROM users LEFT JOIN spoken_languages ON users.id = spoken_languages.users_id LEFT JOIN languages ON spoken_languages.language_id = languages.language_id LEFT JOIN newcomer ON users.id = newcomer.user_id WHERE helper = 0 AND zipcode = {}".format(zipcode))
+        users = mysql.fetch("SELECT * FROM users LEFT JOIN newcomer ON users.id = newcomer.user_id WHERE helper = 0 AND zipcode = {}".format(zipcode))
     else:
-        users = mysql.fetch("SELECT * FROM users LEFT JOIN spoken_languages ON users.id = spoken_languages.users_id LEFT JOIN languages ON spoken_languages.language_id = languages.language_id LEFT JOIN helper ON users.id = helper.user_id WHERE helper = 1 AND zipcode = {}".format(zipcode))
+        users = mysql.fetch("SELECT * FROM users LEFT JOIN helper ON users.id = helper.user_id WHERE helper = 1 AND zipcode = {}".format(zipcode))
     
     print users
-    users_dict = {"searchresults" : users}
+    
+    
+    for u in users:
+        languages = mysql.fetch("SELECT language_name FROM spoken_languages LEFT JOIN languages on spoken_languages.language_id =languages.language_id WHERE spoken_languages.users_id = {}".format(u['id']))
+        spoken_lang_array = []
+        for lang in languages:
+            spoken_lang_array.append(lang['language_name'])
+        u['languages'] = spoken_lang_array
+        print u['languages']
 
+    users_dict = {"searchresults" : users}
     print users_dict
     print type(users_dict)
-
     return jsonify(**users_dict)
 
 # NOTE: The helper doesn't get any filters to look for newcomers needing help
@@ -326,7 +358,16 @@ def filter_search (zipcode):
 
     # users = mysql.fetch("SELECT * FROM users LEFT JOIN helper ON users.id = helper.user_id WHERE helper = 1 AND zipcode = {} AND realestate = {} AND finances = {} AND medicalcare = {} AND automobile = {} AND lang_tutor = {} AND lang_translator = {} AND social = {} AND previous_newcomer".format(zipcode, realestate, finances, medicalcare, automobile, lang_tutor, lang_translator, social, previous_newcomer))
     users = mysql.fetch(query)
+
+
     print users
+    for u in users:
+        languages = mysql.fetch("SELECT language_name FROM spoken_languages LEFT JOIN languages on spoken_languages.language_id =languages.language_id WHERE spoken_languages.users_id = {}".format(u['id']))
+        spoken_lang_array = []
+        for lang in languages:
+            spoken_lang_array.append(lang['language_name'])
+        u['languages'] = spoken_lang_array
+        print u['languages']
     users_dict = {"searchresults" : users}
     return jsonify(**users_dict)
 

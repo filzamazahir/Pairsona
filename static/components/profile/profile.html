@@ -1,0 +1,63 @@
+<div class="profile-content">
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">
+                    <img class="logo" alt="Brand" src="../../assets/logo.png">
+                </a>
+                <button type="button" class="navbar-toggle collapsed pull-right"
+                        data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <button type="button" data-ng-show="!$root.loggedIn" class="btn btn-default navbar-btn pull-right">Sign
+                    up
+                </button>
+                <button type="button" data-ng-show="!$root.loggedIn" class="btn btn-default navbar-btn pull-right">Log
+                    in
+                </button>
+                <!--<button type="button" class="btn btn-default navbar-btn pull-right">Back</button>-->
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#/search">Search</a></li>
+                <li><a href="#/connections">Connection requests</a></li>
+                <li><a href="#/profile">Profile</a></li>
+                <li><a href="#">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="profile-page col-lg-12 col-md-12 col-sm-12 col-xs-12 center-block">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 img-wrapper">
+            <img src="../../assets/{{profileInfo.profileImg}}" alt="profile_img" class="profile-img">
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile-wrapper">
+            <div class="username">{{profileInfo.username}}</div>
+            <div class="country">{{profileInfo.country}}</div>
+            <div class="languages">
+                <span ng-repeat="l in profileInfo.languages">
+                    {{l}}{{$last ? '' : ', '}}
+                </span>
+            </div>
+            <div class="arrival-date"> Arrival date: {{profileInfo.arrivalDate}}</div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 profile-wrapper bio">
+            <div class="" data-ng-if="profileInfo.helper == 1">I offer:</div>
+            <div class="" data-ng-if="profileInfo.helper == 0">I need:</div>
+            <div class="service-list" data-ng-repeat="s in profileInfo.services">
+                <span class="glyphicon glyphicon-ok"> </span> {{s}}
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 connect-wrapper">
+            <button class="btn btn-primary btn-block btn-lg"
+                    data-ng-click="profileInfo.btnText='Connection Request sent'">
+                {{profileInfo.btnText}}
+            </button>
+        </div>
+    </div>
+</div>
+

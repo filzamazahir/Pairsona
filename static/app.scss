@@ -1,0 +1,267 @@
+$default-color: rgb(124, 0, 219);
+$default-bg: rgba(155,155,155, .2);
+
+* {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
+
+html, body, .page-content {
+  height: 100%;
+  width: 100%;
+}
+
+.page-content {
+  padding: 0 !important;
+}
+
+.page-content .home-page {
+  background: rgba(255, 255, 255, 0.8);
+  position: absolute;
+  bottom: 15%;
+  height: 250px;
+
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+.home-content {
+  height: 100%;
+  background: red;
+  width: 100%;
+
+  background: url("assets/bg-purple.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: absolute;
+}
+
+.navbar-brand {
+  .logo {
+    height: 50px;
+  }
+}
+
+.navbar-default .navbar-brand {
+  padding: 0;
+}
+
+.navbar-header {
+  margin-left: 0;
+  .navbar-btn {
+    margin: 8px 8px 8px 0;
+  }
+}
+
+.logo-wrapper {
+  text-align: center;
+  img {
+    height: 100px;
+  }
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+  background-color: $default-color !important;
+  border-color: $default-color !important;
+}
+
+.btn-wrapper {
+  padding: 25px 0;
+  div {
+    padding: 0;
+    .btn {
+      width: 95%;
+    }
+  }
+}
+
+.zip-wrapper {
+  .error-text {
+    font-size: 14px;
+    color: red;
+  }
+}
+
+//HOME STYLES END
+
+.landing-page {
+  margin-left: 0 !important;
+  height: 100%;
+  width: 100%;
+
+  background: url("assets/bg.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: absolute;
+
+  .landing-content {
+
+    background: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    bottom: 15%;
+    height: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+
+    .logo-wrapper {
+      text-align: center;
+      img {
+        height: 150px;
+      }
+    }
+
+    .dropdown {
+      width: 100%;
+      height: 40px;
+      border: 1px solid grey;
+      margin: 45px 0;
+      background: $default-color;
+      color: white;
+    }
+  }
+}
+
+//LANDING ENDS
+
+.profile-content {
+  background: $default-bg;
+  height: 100%;
+  .profile-page {
+    .img-wrapper {
+      text-align: center;
+      img {
+        height: 250px;
+      }
+    }
+    .profile-wrapper {
+      background: white;
+      text-align: center;
+      margin-top: 10px;
+      padding: 5px;
+
+      &.bio {
+        font-size: 14px;
+        text-align: left;
+        padding: 2px 10px;
+
+        .service-list {
+          padding: 2px;
+
+          .glyphicon {
+            color: $default-color;
+          }
+        }
+      }
+
+      .username {
+        font-size: 24px;
+      }
+      .languages {
+        font-style: italic;
+      }
+      .country, .arrival-date {
+        font-weight: 600;
+      }
+
+    }
+    .connect-wrapper {
+      margin: 10px 0;
+      padding: 0;
+      text-align: center;
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+}
+
+//PROFILE ENDS
+
+.search-content {
+  .search-page {
+    select {
+      margin: 20px 0;
+      width: 100%;
+      border: 1px solid grey;
+
+      option {
+        padding: 5px 0;
+      }
+    }
+  }
+}
+
+@media only screen and (max-device-width: 480px){
+  .search-content {
+    .search-page {
+      select {
+        height: 40px;
+      }
+    }
+  }
+}
+
+
+
+//SEARCH ENDS
+
+.results-content {
+  background: $default-bg;
+  height: 100%;
+}
+
+.results-page {
+  img {
+    height: 80px;
+  }
+
+
+}
+
+//RESULTS ENDS
+
+.connections-content {
+  background: $default-bg;
+  height: 100%;
+}
+
+.connections-page {
+  img {
+    height: 80px;
+  }
+}
+
+
+
+//CONNECTIONS END
+
+.search-result {
+  padding: 10px 0;
+  margin: 5px 0;
+  background-color: #fff;
+  border-radius: 2px;
+  transition: box-shadow 0.25s;
+  font-size: 14px;
+}
+
+.profile-info {
+  padding: 0;
+
+  .btn{
+    margin: 5px 5px 0 0;
+  }
+
+  .country, .services span {
+    font-size: 12px;
+  }
+}
+
+//COMMON

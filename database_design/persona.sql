@@ -5,6 +5,9 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
+-- Schema mydb
+-- -----------------------------------------------------
+-- -----------------------------------------------------
 -- Schema persona_db
 -- -----------------------------------------------------
 
@@ -18,7 +21,7 @@ USE `persona_db` ;
 -- Table `persona_db`.`users`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `persona_db`.`users` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `first_name` VARCHAR(45) NULL DEFAULT NULL,
   `last_name` VARCHAR(45) NULL DEFAULT NULL,
   `username` VARCHAR(45) NULL DEFAULT NULL,
@@ -32,6 +35,7 @@ CREATE TABLE IF NOT EXISTS `persona_db`.`users` (
   `updated_at` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 6
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -39,9 +43,9 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `persona_db`.`connections`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `persona_db`.`connections` (
-  `connection_id` INT NOT NULL AUTO_INCREMENT,
-  `helper_id` INT NOT NULL,
-  `newcomer_id` INT NOT NULL,
+  `connection_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `helper_id` INT(11) NOT NULL,
+  `newcomer_id` INT(11) NOT NULL,
   `created_at` DATETIME NULL DEFAULT NULL,
   `updated_at` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`connection_id`),
@@ -58,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `persona_db`.`connections` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
+AUTO_INCREMENT = 4
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -65,7 +70,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `persona_db`.`helper`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `persona_db`.`helper` (
-  `user_id` INT NOT NULL,
+  `user_id` INT(11) NOT NULL,
   `realestate` TINYINT(1) NULL DEFAULT NULL,
   `finances` TINYINT(1) NULL DEFAULT NULL,
   `medicalcare` TINYINT(1) NULL DEFAULT NULL,
@@ -87,28 +92,10 @@ DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
--- Table `persona_db`.`newcomer`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `persona_db`.`newcomer` (
-  `user_id` INT NOT NULL,
-  `date_entry` DATETIME NULL DEFAULT NULL,
-  `created_at` TEXT NULL DEFAULT NULL,
-  `updated_at` TEXT NULL DEFAULT NULL,
-  INDEX `fk_refugee_users1` (`user_id` ASC),
-  CONSTRAINT `fk_refugee_users1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `persona_db`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
 -- Table `persona_db`.`invitations`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `persona_db`.`invitations` (
-  `invitation_id` INT NOT NULL,
+  `invitation_id` INT(11) NOT NULL,
   `invited_id` INT(11) NOT NULL,
   `inviter_id` INT(11) NOT NULL,
   PRIMARY KEY (`invitation_id`, `invited_id`, `inviter_id`),
@@ -124,31 +111,49 @@ CREATE TABLE IF NOT EXISTS `persona_db`.`invitations` (
     REFERENCES `persona_db`.`users` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
 -- Table `persona_db`.`languages`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `persona_db`.`languages` (
-  `language_id` INT NOT NULL AUTO_INCREMENT,
-  `language_name` VARCHAR(45) NULL,
-  `iso_639-1` VARCHAR(2) NULL,
-  `created_at` DATETIME NULL,
-  `updated_at` DATETIME NULL,
+  `language_id` INT(11) NOT NULL,
+  `language_name` VARCHAR(45) NULL DEFAULT NULL,
+  `iso_639-1` VARCHAR(2) NULL DEFAULT NULL,
   PRIMARY KEY (`language_id`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `persona_db`.`newcomer`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `persona_db`.`newcomer` (
+  `user_id` INT(11) NOT NULL,
+  `date_entry` DATETIME NULL DEFAULT NULL,
+  `created_at` TEXT NULL DEFAULT NULL,
+  `updated_at` TEXT NULL DEFAULT NULL,
+  INDEX `fk_refugee_users1` (`user_id` ASC),
+  CONSTRAINT `fk_refugee_users1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `persona_db`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
 -- Table `persona_db`.`spoken_languages`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `persona_db`.`spoken_languages` (
-  `spoken_language_id` INT NOT NULL AUTO_INCREMENT,
-  `users_id` INT NOT NULL,
-  `language_id` INT NOT NULL,
-  `created_at` DATETIME NULL,
-  `updated_at` DATETIME NULL,
+  `spoken_language_id` INT(11) NOT NULL AUTO_INCREMENT,
+  `users_id` INT(11) NOT NULL,
+  `language_id` INT(11) NOT NULL,
+  `created_at` DATETIME NULL DEFAULT NULL,
+  `updated_at` DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`spoken_language_id`),
   INDEX `fk_spoken_languages_users1_idx` (`users_id` ASC),
   INDEX `fk_spoken_languages_languages1_idx` (`language_id` ASC),
@@ -162,7 +167,8 @@ CREATE TABLE IF NOT EXISTS `persona_db`.`spoken_languages` (
     REFERENCES `persona_db`.`languages` (`language_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

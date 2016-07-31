@@ -74,6 +74,16 @@ http://localhost:5000/search/<is_helper_bool>/<zipcode>
   ]
 }
 
+Filter query
+{"realestate":1,
+"finances" :0,
+"medicalcare": 0,
+"automobile":1,
+"lang_tutor":1,
+"lang_translator":1,
+"social":0,
+"previous_newcomer":0}
+
 
 
 Adding Connections
@@ -140,59 +150,6 @@ http://localhost:5000/invites/<user_id>
 http://localhost:5000/register
 
 
-{"firstname":"First", 
-"lastname":"Person", 
-"username":"first", 
-"email":"firstperson@gmail.com", 
-"password":"Hello123",
-"conf_password":"Hello123", 
-"helper":1, 
-"zipcode":93456, 
-"description":"Description is here",
-"country_origin": "Syria",
-"realestate": 1, 
-"finances" : 1,
-"medicalcare" : 0,
-"automobile" : 0,
-"lang_tutor" : 1,
-"lang_translator" : 1,
-"social": 1,
-"previous_newcomer" : 0}
-
-
-{"firstname":"Second", 
-"lastname":"Person", 
-"username":"helloworld", 
-"email":"helloworld@gmail.com", 
-"password":"Hello1",
-"conf_password":"Hello1", 
-"helper":0, 
-"zipcode":12345, 
-"description":"Hello there!!!! Description is here",
-"country_origin": "Canada",
-"date_entry":"2016-07-31"}
-
-
-
-{"firstname":"Third", 
-"lastname":"Helper", 
-"username":"thirdhelper", 
-"email":"thirdhelper@gmail.com", 
-"password":"Hello123",
-"conf_password":"Hello123", 
-"helper":1, 
-"zipcode":93456, 
-"description":"Description is here",
-"country_origin": "Germany",
-"realestate": 1, 
-"finances" : 0,
-"medicalcare" : 0,
-"automobile" : 1,
-"lang_tutor" : 1,
-"lang_translator" : 1,
-"social": 0,
-"previous_newcomer" : 0}
-
 
 
 {"firstname":"Fourth", 
@@ -205,7 +162,8 @@ http://localhost:5000/register
 "zipcode":98343, 
 "description":"Hello there!!!! Description is here",
 "country_origin": "USA",
-"date_entry":"2015-01-31"}
+"date_entry":"2015-01-31",
+"languages_id":[4,5,6]}
 
 {"firstname":"Fifth", 
 "lastname":"Helper", 

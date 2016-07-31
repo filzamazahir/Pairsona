@@ -1,0 +1,12 @@
+<div class="landing-page row">
+    <div class="landing-content col-lg-11 col-md-11 col-sm-11 col-xs-11 center-block">
+        <div class="logo-wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <img class="logo to-do" src="../../assets/logo.png" alt="logo">
+        </div>
+        <div class="language-wrapper col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <select class="dropdown" data-ng-options="option.name as option.name disable when option.disabled
+                    for option in languages" data-ng-change="selectLanguage()"
+                    data-ng-model="selectedLanguage"></select>
+        </div>
+    </div>
+</div>
