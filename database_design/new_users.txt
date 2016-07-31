@@ -1,0 +1,43 @@
+Register json
+
+
+{"firstname":"Lukas", 
+"lastname":"Reiter", 
+"username":"lukas", 
+"email":"lukas@gmail.com", 
+"password":"Hello123",
+"conf_password":"Hello123", 
+"helper":1, 
+"zipcode":30319, 
+"description":”I am a Swiss citizen",
+"country_origin": "Switzerland",
+"realestate": 1, 
+"finances" : 1,
+"medicalcare" : 1,
+"automobile" : 0,
+"lang_tutor" : 0,
+"lang_translator" : 1,
+"social": 0,
+"previous_newcomer" : 1,
+"languages_id":[23,1,111]}
+
+
+{"firstname":"Artyom", 
+"lastname":"Pustave", 
+"username":"artyom", 
+"email":"artyom@gmail.com", 
+"password":"Hello123",
+"conf_password":"Hello123", 
+"helper":1, 
+"zipcode":30308, 
+"description":"I have lived in Belarus, Germany, and Switzerland",
+"country_origin": "China",
+"realestate": 1, 
+"finances" : 1,
+"medicalcare" : 1,
+"automobile" : 0,
+"lang_tutor" : 1,
+"lang_translator" : 1,
+"social": 0,
+"previous_newcomer" : 1,
+"languages_id":[94,23,1]}

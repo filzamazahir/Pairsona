@@ -20,8 +20,8 @@ https://persona-python.herokuapp.com/  (back-end)
 - Sarah Homsi  https://github.com/Sarah-Homsi
 - Kimberly Mach https://github.com/kdvmach
 - Nivedhitha Venugopal  https://github.com/NivedhithaV
-- Marisssa Swanson
-- Sabrina Harris
-- Sam Brooks
+- Marisssa Swanson  https://www.linkedin.com/in/marissa-swanson-262b4b57
+- Sabrina Harris  Sabrina's Bechance: https://www.behance.net/rezilyent2510
+- Sam Brooks  https://www.behance.net/sambrooks2e259
 
 Note: The back-end and front-end are not fully integrated in the deployed sites as of yet.
