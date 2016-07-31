@@ -6,7 +6,7 @@ import json
 from flask.ext.bcrypt import Bcrypt
 from datetime import datetime, timedelta
 
-mysql = MySQLConnector('personas_db')
+mysql = MySQLConnector('persona_db')
 app = Flask (__name__)
 bcrypt = Bcrypt(app)
 app.secret_key = "SecretKeyHere"
@@ -21,14 +21,67 @@ def index():
         return render_template('index.html')
 
     # If logged in already, redirect to dashboard (according to admin level)
-    users = self.models['User'].get_all_users()
-    current_user = self.models['User'].get_a_user(session['userid'])
-    return render_template('register.html', current_user = current_user, users = users)
+    current_user = mysql.fetch("SELECT * FROM users WHERE id = {}".format(session['userid']))
+    print current_user
+    return render_template('index.html', current_user = current_user)
+
+
+#Authenticate user if they login
+@app.route ('/login', methods=['POST'])
+def authenticate_login():
+
+    print "In authenticate_login function"
+
+    data_requested = request.data
+    json_data = json.loads(data_requested)
+
+    print json_data
+
+    email = json_data['email']
+    password = json_data['password']
+    
+
+    #Check if both fields are inputted
+    if len(email) ==0 or len(password) == 0:
+        flash (u'Please enter your email and password to login','login')
+        return redirect ('/')
+
+    #Validate email
+    if not EMAIL_REGEX.match(email): 
+        print "Validate email error"
+        flash (u'Invalid email address','email_login')
+        return redirect ('/')
+
+    #Check if user exists with the given email and password
+    current_user = mysql.fetch("SELECT * FROM users WHERE email = '{}'".format(email))
+    print "CURRENT USER", current_user
+    if len(current_user) == 0:
+        print "Wrong email"
+        flash (u'Wrong email or password entered. Please try again','login')
+        return redirect ('/')
+
+    if not bcrypt.check_password_hash(current_user[0]['password'], password):
+        print "Wrong password"
+        flash (u'Wrong email or password entered. Please try again!','login')
+        return redirect ('/')
+
+
+    #At this point everything has been validated and passwords checked
+    session['login'] = True
+    session['userid']= current_user[0]['id']
+
+    print "session login" + session['login']
+    print "session userid" + session['userid']
+
+    return redirect ('/')
+
+
+
 
 #Register user
-@app.route ('/users/register', methods=['POST'])
+@app.route ('/register', methods=['POST'])
 def add_user_login():
-        print "In users/register"
+        print "In add_user_login function"
         print "Request data" + request.data
         data_requested = request.data
         json_data = json.loads(data_requested)
@@ -52,12 +105,13 @@ def add_user_login():
         lastname = str(json_data['lastname'])
         username = str(json_data['username'])
         email = json_data['email']
-        password = json_data['password'],
-        conf_password = json_data['conf_password'],
-        helper = json_data['helper'],
-        zipcode = json_data['zipcode'],
+        password = str(json_data['password'])
+        conf_password = json_data['conf_password']
+        helper = json_data['helper']
+        zipcode = json_data['zipcode']
         description = json_data['description']
         
+
 
         # register_status = self.models['User'].register(register_info)
         error_dict = {}
@@ -122,12 +176,12 @@ def add_user_login():
 
 
         #Check if there were any errors in the previous validation process
-        if error == True:
-            return redirect ('/')
-            return {"status" : False, "error_dict": error_dict}
+        # if error == True:
+        #     return redirect ('/')
+            # return {"status" : False, "error_dict": error_dict}
 
         pw_hash = bcrypt.generate_password_hash(password)
-        insert_query = "INSERT INTO users (firstname, lastname, username, email, password, helper, zipcode, description, created_at, updated_at) VALUES ('{}','{}','{}','{}','{}', '{}', '{}', '{}', NOW(), NOW())".format(firstname, lastname, username, email, pw_hash, helper, zipcode, description)
+        insert_query = "INSERT INTO users (first_name, last_name, username, email, password, helper, zipcode, description, created_at, updated_at) VALUES ('{}','{}','{}','{}','{}', '{}', '{}', '{}', NOW(), NOW())".format(firstname, lastname, username, email, pw_hash, helper, zipcode, description)
         mysql.run_mysql_query(insert_query)
  
 
