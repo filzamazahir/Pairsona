@@ -10,7 +10,8 @@ Technologies used:
 
 # Deployment
 ```
-http://persona-wwc.herokuapp.com/
+http://persona-wwc.herokuapp.com/  (front-end)
+https://persona-python.herokuapp.com/  (back-end)
 ```
 
 Team:
@@ -21,3 +22,5 @@ Team:
 - Marisssa Swanson
 - Sabrina Harris
 - Sam Brooks
+
+Note: The back-end and front-end are not fully integrated in the deployed sites as of yet.
