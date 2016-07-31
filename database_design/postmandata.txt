@@ -54,14 +54,15 @@ http://localhost:5000/register
 
 
 {"firstname":"Fourth", 
-"lastname":"Person", 
+"lastname":"Newcomer", 
 "username":"helloworld", 
 "email":"fourth@gmail.com", 
 "password":"Hello1",
 "conf_password":"Hello1", 
 "helper":1, 
-"zipcode":12345, 
-"description":"Hello there!!!! Description is here"}
+"zipcode":98343, 
+"description":"Hello there!!!! Description is here",
+"date_entry":"2015-01-31"}
 
 
 http://localhost:5000/login
@@ -71,4 +72,25 @@ http://localhost:5000/login
 
 {"email":"helloworld@gmail.com", 
 "password":"Hello1"}
+
+
+Format for search results query:
+
+{
+  "searchresults": [
+    {
+      "created_at": "Sun, 31 Jul 2016 01:36:01 GMT", 
+      "description": "Hello there!!!! Description is here", 
+      "email": "helloworld@gmail.com", 
+      "first_name": "Second", 
+      "helper": 0, 
+      "id": 2, 
+      "last_name": "Person", 
+      "password": "$2b$12$7c8pjnky2moXFgTxkvQJ5.0LNQtDzR7hslMK9gOyIyNhfb9tp3nxq", 
+      "updated_at": "Sun, 31 Jul 2016 01:36:01 GMT", 
+      "username": "helloworld", 
+      "zipcode": "12345"
+    }
+  ]
+}
 

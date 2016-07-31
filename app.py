@@ -248,16 +248,47 @@ def add_user_login():
 #Search Query
 @app.route('/search/<helper_bool>/<zipcode>')
 def search_people (helper_bool, zipcode):
-
+    helper_bool = int(helper_bool)
+    zipcode = int(zipcode)
     if helper_bool == 1:
         users = mysql.fetch("SELECT * FROM users WHERE helper = 0 AND zipcode = {}".format(zipcode))
     else:
         users = mysql.fetch("SELECT * FROM users WHERE helper = 1 AND zipcode = {}".format(zipcode))
     
     print users
-    json_data = json.dumps(users)
-    print json_data
-    return json_data
+    users_dict = {"searchresults" : users}
+
+    print users_dict
+    print type(users_dict)
+
+    return jsonify(**users_dict)
+
+# NOTE: The helper doesn't get any filters to look for newcomers needing help
+
+#Filter Query
+@app.route('/search/0/<zipcode>', methods=['POST'])
+def filter_search (zipcode):
+    zipcode = int(zipcode)
+    print zipcode
+
+    filters_requested = request.data
+    json_filters = json.loads(filters_requested)
+
+    realestate = json_filters['realestate']
+    finances = json_filters['finances']
+    medicalcare = json_filters['medicalcare']
+    automobile = json_filters['automobile']
+    lang_tutor = json_filters['lang_tutor']
+    lang_translator = json_filters['lang_translator']
+    social = json_filters['social']
+    previous_newcomer = json_filters['previous_newcomer']
+
+
+    users = mysql.fetch("SELECT * FROM users LEFT JOIN helper ON users.id = helper.user_id WHERE helper = 1 AND zipcode = {} AND realestate = {} AND finances = {} AND medicalcare = {} AND automobile = {} AND lang_tutor = {} AND lang_translator = {} AND social = {} AND previous_newcomer".format(zipcode, realestate, finances, medicalcare, automobile, lang_tutor, lang_translator, social, previous_newcomer))
+    print users
+    users_dict = {"searchresults" : users}
+    return jsonify(**users_dict)
+
 
 
 
