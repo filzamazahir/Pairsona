@@ -1,7 +1,7 @@
 # Persona
 Persona is a webapp that connects newcomers in the country to locals in the community. This is to help ease their transition, and make life-long connections. This is specially helpful to the current refugee crisis in the world, which is one of the largest in the digital age.
 
-This is for the WWCode Hackathon!!
+This is for the Women Who Code Hackathon!
 
 Technologies used:
 - Front-end: Angular
@@ -18,7 +18,7 @@ cd Persona
 
 2) Make sure to have pip installed. If you don't have it installed there are great instructions here: https://pip.pypa.io/en/latest/installing.html
 ```
-https://github.com/filzamazahir/Persona
+pip install -r requirements.txt
 ```
 
 3) Import the persona.sql files from the folder extra, and start the MAMP server
@@ -47,4 +47,7 @@ https://persona-python.herokuapp.com/  (back-end)
 - Sabrina Harris  Sabrina's Bechance: https://www.behance.net/rezilyent2510
 - Sam Brooks  https://www.behance.net/sambrooks2e259
 
-Note: The back-end and front-end are not fully integrated in the deployed sites as of yet.
+Note: 
+- The back-end and front-end are not fully integrated in the deployed sites as of yet.
+- The name of this app has since been changed to Pairsona. Please vitsit http://www.pairsona.com
+
