@@ -1,7 +1,10 @@
-# Persona
-Persona is a webapp that connects newcomers in the country to locals in the community. This is to help ease their transition, and make life-long connections. This is specially helpful to the current refugee crisis in the world, which is one of the largest in the digital age.
+# Pairsona
+Pairsona is a webapp that connects newcomers in the country to locals in the community. This is to help ease their transition, and make life-long connections. This is specially helpful to the current refugee crisis in the world, which is one of the largest in the digital age.
 
 This is for the Women Who Code Hackathon!
+
+Note: This project is currently being worked on in a private repository and will be deployed soon! Please visit http://www.pairsona.com.
+
 
 Technologies used:
 - Front-end: Angular
@@ -49,5 +52,4 @@ https://persona-python.herokuapp.com/  (back-end)
 
 Note: 
 - The back-end and front-end are not fully integrated in the deployed sites as of yet.
-- The name of this app has since been changed to Pairsona. Please vitsit http://www.pairsona.com
-
+- The name of this app has been changed from Persona (at the hackathon) to Pairsona. 
