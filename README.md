@@ -1,9 +1,7 @@
 # Pairsona
 Pairsona is a webapp that connects newcomers in the country to locals in the community. This is to help ease their transition, and make life-long connections. This is specially helpful to the current refugee crisis in the world, which is one of the largest in the digital age.
 
-This is for the Women Who Code Hackathon!
-
-Note: This project is currently being worked on in a private repository and will be deployed soon! Please visit http://www.pairsona.com.
+This is for the Women Who Code Hackathon! This project is currently being worked on in a private repository and will be deployed soon! Please visit http://www.pairsona.com.
 
 
 Technologies used:
@@ -15,8 +13,8 @@ Technologies used:
 
 1) Clone the project
 ```
-git clone https://github.com/filzamazahir/Persona
-cd Persona
+git clone https://github.com/filzamazahir/Pairsona
+cd Pairsona
 ```
 
 2) Make sure to have pip installed. If you don't have it installed there are great instructions here: https://pip.pypa.io/en/latest/installing.html
